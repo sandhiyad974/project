@@ -4,6 +4,7 @@ class AutomorphicNumber
 	public static void main (String arg[])
 	{
 		Scanner input=new Scanner(System.in);
+		System.out.println("Enter the number");
 		int number= input.nextInt();
 		int sqnum=number*number;
 		
@@ -12,9 +13,9 @@ class AutomorphicNumber
 		while(number>0)
 		{
 		count+=1;
-		int a=sqnum%10;
-		int e=number%10;
-			if(a==e){
+		int rem=sqnum%10;
+		int rem1=number%10;
+			if(rem==rem1){
 				flag+=1	;
 			}
 		number=number/10;
@@ -23,10 +24,10 @@ class AutomorphicNumber
 		}
 		
 		if(count==flag){
-			System.out.println("true");
+			System.out.println("Automorphic Number");
 		}
 		else{
-			System.out.println(false);
+			System.out.println("Not an Automorphic Number");
 		}
 	}
 }
