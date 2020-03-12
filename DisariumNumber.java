@@ -14,7 +14,6 @@ class DisariumNumber
       
       double rem=temp%10;
       double val=Math.pow(rem,position);
-      System.out.println(val);
       sum+=val;
       position-=1;
       temp=temp/10;
