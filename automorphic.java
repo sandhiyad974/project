@@ -5,16 +5,16 @@ class AutomorphicNumber
 	{
 		Scanner input=new Scanner(System.in);
 		System.out.println("Enter the number");
-		int number= input.nextInt();
-		int sqnum=number*number;
+		long number= input.nextInt();
+		long sqnum=number*number;
 		
 		int count=0;
 		int flag=0;
 		while(number>0)
 		{
 		count+=1;
-		int rem=sqnum%10;
-		int rem1=number%10;
+		long rem=sqnum%10;
+		long rem1=number%10;
 			if(rem==rem1){
 				flag+=1	;
 			}
