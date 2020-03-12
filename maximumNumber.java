@@ -24,6 +24,6 @@ class MaximumNumber
 		{
 			result+=a;
 		}
-		System.out.println(result);
+		System.out.println("Maximum Number that can be obtained from the given number : "+result);
 	}
 }
