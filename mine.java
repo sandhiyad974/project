@@ -25,7 +25,7 @@ import java.util.Scanner;
 	         }
 	        for (int i = 0; i <  mines.length; i++){
 	            for (int j = 0; j < mines[0].length; j++){
-	               mines[i][j] = (int)(Math.random());
+	               mines[i][j] = (int)(Math.random()*2);
 	            }
 	        }
       	}  
