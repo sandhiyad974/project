@@ -1,6 +1,8 @@
 package Chat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -63,7 +65,7 @@ class Chatapp {
             int id=Integer.parseInt(url.substring(7));
             Chats c=Chats.getChats().get(id);
             ArrayList<Message> msgs=c.getMsg();
-            System.out.println(c.getContacts().getcontact_name());
+            System.out.println(c.getContacts().getContacts());
             for(Message m:msgs){
                System.out.println(m.getText()+"\t\t");
             }
@@ -71,11 +73,23 @@ class Chatapp {
         else{
             System.out.println("Something went wrong");
         }
-       
-    else{
-        System.out.println("Bye");
     }
- }
+     public void delete(String[] arr){
+        String url=arr[1];
+        if(url.startsWith("/contacts")){
+            int id=Integer.parseInt(url.substring(10));
+            Contact.getChats().remove(id);
+            System.out.println("Contact deleted !!");
+        }
+        else if(url.startsWith("/chats")){
+            int id=Integer.parseInt(url.substring(7));
+            Chats.getChats().remove(id);
+            System.out.println("Chat deleted !!");
+        }
+        else{
+            System.out.println("No such url!!");
+        }
+    }
     
 public void post(String[] arr){
         String url=arr[1];
@@ -89,8 +103,8 @@ public void post(String[] arr){
         else if(url.equals("/chats/")){
             int id=Integer.parseInt(url.substring(7));
             String text=arr[2];
-            Chats contc=Contact.getContacts().get(id);
-            Message msg=new Message(text, text);
+            Contact contc=Contact.getContacts().get(id);
+            Message msg=new Message(text);
             if(Chats.getChats().containsKey(id)){
                     Chats.getChats().get(id).setMsg(msg);
                     System.out.println("sent");
@@ -111,7 +125,7 @@ public void post(String[] arr){
 
         while(itrator.hasNext())
         {
-            Map.Entry<Integer,Contact> map = itr.next();
+            Map.Entry<Integer,Contact> map = itrator.next();
             System.out.println("Id      |       Name                    number");
             System.out.println("-----------------------------------------------------------------------------------------");
             System.out.println(  map.getKey() + "\t|\t" + map.getValue().getcontact_name()+"\t|\t"+map.getValue().getContact_number());
@@ -125,7 +139,7 @@ public void post(String[] arr){
         for (Chats chat : messages.values()){
              System.out.println("Id      |       Name                    number");
             System.out.println("-----------------------------------------------------------------------------------------");
-            System.out.println(chat.getContacts().getcontact_name()+"\t\t"+chat.getMsg().get(chat.getMsg().size()-1).getText()  +"\t\t"+chat.getMsg().get(chat.getMsg().size()));
+            System.out.println(chat.getContacts().getContacts()+"\t\t"+chat.getMsg().get(chat.getMsg().size()-1).getText()  +"\t\t"+chat.getMsg().get(chat.getMsg().size()));
             System.out.println("--------------------------------------------------------------------------------------------");
 
         }
@@ -176,7 +190,7 @@ class Contact{
     String contact_number;
 
     int count=0;
-    HashMap<Integer,Details> fullContacts=new HashMap<Integer, Details>();
+    static HashMap<Integer,Contact> fullContacts=new HashMap<Integer, Contact>();
 
     public Contact(String contact_name, String contact_number) {
         count+=1;
@@ -258,11 +272,11 @@ class Message {
     //     }
     }
 class Chats {
-       int ch_id;s
-      Details contacts;
+       int ch_id;
+      Contact contacts;
      int count=0;
      ArrayList<Message> amessages=new ArrayList<Message>();
-    HashMap<Integer,Chats> messages=new HashMap<Integer, Chats>();
+    static HashMap<Integer,Chats> messages=new HashMap<Integer, Chats>();
 
     
     
@@ -271,6 +285,11 @@ class Chats {
       this.ch_id=count;
     }
     
+    public void setContact(Chats chatsn) {
+        // TODO Auto-generated method stub
+        
+    }
+
     public int getCh_id() {
         return ch_id;
     }
@@ -287,14 +306,14 @@ class Chats {
         this.amessages.add(message);
     }
 
-    public HashMap<Integer, Chats> getChats() {
+    public static HashMap<Integer, Chats> getChats() {
         return messages;
     }
 
     public void setChats(Chats chat) {
         Chats.messages.put(chat.contact.getCh_Id(),chat);
     }
-    public Chats getContacts() {
+    public Contact getContacts() {
         return contacts;
     }
 
